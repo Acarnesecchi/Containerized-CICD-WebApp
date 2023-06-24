@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import qrcode
 import os
+import gunicorn
 
 app = Flask(__name__, template_folder='view', static_folder='static')
 
@@ -27,4 +28,5 @@ def generate_qr_code(text):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    from gunicorn.app.wsgiapp import run
+    run(app, host='0.0.0.0', port=8000)
